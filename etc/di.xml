@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Commerce365\MagentoApiExtensions\Api\CategoryManagementInterface"
+    			type="Commerce365\MagentoApiExtensions\Model\Category" />
+
+    <preference for="Commerce365\MagentoApiExtensions\Api\ShippingMethodManagementInterface"
+    			type="Commerce365\MagentoApiExtensions\Model\ShippingMethod" />
+
+    <preference for="Commerce365\MagentoApiExtensions\Api\PaymentMethodManagementInterface"
+    			type="Commerce365\MagentoApiExtensions\Model\PaymentMethod" />
+
+    <preference for="Commerce365\MagentoApiExtensions\Api\MagentoManagementInterface"
+    			type="Commerce365\MagentoApiExtensions\Model\Magento" />
+
+    <preference for="Commerce365\MagentoApiExtensions\Api\SalesManagementInterface"
+    			type="Commerce365\MagentoApiExtensions\Model\Sales" />                
+</config>

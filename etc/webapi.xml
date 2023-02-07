@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+  
+	<route url="/V1/categories/:categoryId/position/:new" method="PUT">
+        <service class="Commerce365\MagentoApiExtensions\Api\CategoryManagementInterface" method="updatePosition"/>
+        <resources>
+            <resource ref="admin" />
+        </resources>
+    </route>
+
+    <route url="/V1/shippingmethods" method="GET">
+        <service class="Commerce365\MagentoApiExtensions\Api\ShippingMethodManagementInterface" method="getActiveMethods"/>
+        <resources>
+            <resource ref="admin" />
+        </resources>
+    </route>
+
+    <route url="/V1/paymentmethods" method="GET">
+        <service class="Commerce365\MagentoApiExtensions\Api\PaymentMethodManagementInterface" method="getActiveMethods"/>
+        <resources>
+            <resource ref="admin" />
+        </resources>
+    </route>
+
+    <route url="/V1/magentoversion" method="GET">
+        <service class="Commerce365\MagentoApiExtensions\Api\MagentoManagementInterface" method="getMagentoVersion"/>
+        <resources>
+            <resource ref="admin" />
+        </resources>
+    </route>
+
+    <route url="/V1/orderstatus" method="POST">
+        <service class="Commerce365\MagentoApiExtensions\Api\SalesManagementInterface" method="createOrderStatus"/>
+        <resources>
+            <resource ref="admin" />
+        </resources>
+    </route>
+
+</routes>
