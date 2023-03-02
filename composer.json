@@ -15,7 +15,7 @@
           "registration.php"
         ],
         "psr-4": {
-          "Commerce365\\MagentoApiExtensions\\\\": ""
+          "Commerce365\\MagentoApiExtensions\\": ""
         }
     }
 }
