@@ -1,6 +1,6 @@
 {
     "name": "commerce365/module-apiextensions",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "N/A",
     "type": "magento2-module",
     "require": {
@@ -15,7 +15,7 @@
           "registration.php"
         ],
         "psr-4": {
-          "Commerce365\\MagentoApiExtensions\\\\": ""
+          "Commerce365\\MagentoApiExtensions\\": ""
         }
     }
 }
