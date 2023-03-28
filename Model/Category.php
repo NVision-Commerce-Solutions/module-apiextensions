@@ -18,7 +18,7 @@ class Category implements CategoryManagementInterface
         $category = $objectManager->create('Magento\Catalog\Model\Category')->load($categoryId);
 
         if (!$category->getId())
-            throw new Exception("Category does not exist");
+            throw new \Exception("Category does not exist");
 
         $category->setPosition($new);
 
