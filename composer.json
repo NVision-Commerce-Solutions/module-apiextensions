@@ -8,7 +8,7 @@
         "magento/module-sales": "*"
     },
     "license": [
-        ""
+        "OSL-3.0"
     ],
     "autoload": {
         "files": [
