@@ -1,50 +1,46 @@
 <?php
+
 namespace Commerce365\MagentoApiExtensions\Model;
+
 use Commerce365\MagentoApiExtensions\Api\ShippingMethodManagementInterface;
+use Magento\Shipping\Model\Config;
+use Magento\Store\Model\StoreManagerInterface;
 
 class ShippingMethod implements ShippingMethodManagementInterface
 {
+    private Config $shipmentConfig;
+    private StoreManagerInterface $storeManager;
 
-    protected $scopeConfig;
-
-    protected $shipmentConfig;
-
-    public function __construct(
-    \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-    \Magento\Shipping\Model\Config $shipmentConfig
-    ) {
+    public function __construct(StoreManagerInterface $storeManager, Config $shipmentConfig)
+    {
         $this->shipmentConfig = $shipmentConfig;
-        $this->scopeConfig = $scopeConfig;
+        $this->storeManager = $storeManager;
     }
 
     /**
      * Get active carriers / shipping methods
-     * 
+     *
      * @api
-     * @return object
-     */  
-    public function getActiveMethods(){
+     * @return array
+     */
+    public function getActiveMethods(): array
+    {
+        $methods = [];
+        $store = $this->storeManager->getStore();
+        $activeCarriers = $this->shipmentConfig->getActiveCarriers($store);
 
-        $activeCarriers = $this->shipmentConfig->getActiveCarriers();
-        $methods = array();
-
-        foreach($activeCarriers as $carrierCode => $carrierModel)
-        {
-            $carrierTitle =$this->scopeConfig->getValue('carriers/'.$carrierCode.'/title');
-
-            if( $carrierMethods = $carrierModel->getAllowedMethods() )
-            {
-                foreach ($carrierMethods as $methodCode => $method)
-                {
-                    $code= $carrierCode.'_'.$methodCode;
-                    $methods[]=array(
-                        'label'=>$carrierTitle,
-                        'value'=>$code
-                    );
+        foreach($activeCarriers as $carrierCode => $carrierModel) {
+            if ($carrierMethods = $carrierModel->getAllowedMethods()) {
+                foreach ($carrierMethods as $methodCode => $method) {
+                    $code = $carrierCode . '_' . $methodCode;
+                    $methods[] = [
+                        'label' => $carrierModel->getConfigData('title'),
+                        'value' => $code
+                    ];
                 }
             }
         }
 
-        return $methods;        
+        return $methods;
     }
 }
