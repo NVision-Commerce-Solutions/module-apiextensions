@@ -1,7 +1,8 @@
 {
     "name": "commerce365/module-apiextensions",
     "version": "1.0.3",
-    "description": "N/A",
+    "description": "Commerce 365 for Magento - Additional Magento 2 API endpoints",
+    "homepage": "https://n.vision/products/commerce-365-for-magento/",
     "type": "magento2-module",
     "require": {
         "magento/framework": "*",
