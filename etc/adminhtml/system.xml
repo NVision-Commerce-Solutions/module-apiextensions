@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="commerce365config_general">
+            <group id="version" >
+                <group id="api_extension_version" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <frontend_model>Commerce365ApiExtensionModuleVersionBlock</frontend_model>
+                    <label><![CDATA[Commerce365 API Extensions Version]]></label>
+                </group>
+            </group>
+        </section>
+    </system>
+</config>

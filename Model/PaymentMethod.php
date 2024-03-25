@@ -1,43 +1,42 @@
 <?php
+
 namespace Commerce365\MagentoApiExtensions\Model;
+
 use Commerce365\MagentoApiExtensions\Api\PaymentMethodManagementInterface;
+use Magento\Payment\Api\PaymentMethodListInterface;
+use Magento\Store\Model\StoreManagerInterface;
 
 class PaymentMethod implements PaymentMethodManagementInterface
 {
+    private PaymentMethodListInterface $paymentMethodList;
+    private StoreManagerInterface $storeManager;
 
-    protected $scopeConfig;
-
-    protected $paymentConfig;
-
-    public function __construct(
-    \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-    \Magento\Payment\Model\Config $paymentConfig
-    ) {
-        $this->paymentConfig= $paymentConfig;
-        $this->scopeConfig = $scopeConfig;
+    public function __construct(PaymentMethodListInterface $paymentMethodList, StoreManagerInterface $storeManager)
+    {
+        $this->paymentMethodList = $paymentMethodList;
+        $this->storeManager = $storeManager;
     }
-    
+
     /**
      * Get active payment methods
-     * 
+     *
+     * @return array
      * @api
-     * @return object
-     */ 
-    public function getActiveMethods(){
+     */
+    public function getActiveMethods(): array
+    {
+        $store = $this->storeManager->getStore();
+        $activeMethods = $this->paymentMethodList->getActiveList($store->getId());
+        $methods = [];
 
-        $activeMethods = $this->paymentConfig->getActiveMethods();
-        $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
-        $methods = array();
-
-        foreach($activeMethods as $paymentCode => $paymentModel)
-        {
-            $paymentTitle = $this->scopeConfig->getValue('payment/'.$paymentCode.'/title');
-            $methods[$paymentCode] = array(
-                'label' => $paymentTitle,
-                'value' => $paymentCode
+        foreach($activeMethods as $paymentMethod) {
+            $methodCode = $paymentMethod->getCode();
+            $methods[$methodCode] = array(
+                'label' => $paymentMethod->getTitle(),
+                'value' => $methodCode
             );
         }
-        
-        return $methods;        
+
+        return $methods;
     }
 }

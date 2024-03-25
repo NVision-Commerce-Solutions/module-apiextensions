@@ -3,16 +3,23 @@
 
     <preference for="Commerce365\MagentoApiExtensions\Api\CategoryManagementInterface"
     			type="Commerce365\MagentoApiExtensions\Model\Category" />
-
     <preference for="Commerce365\MagentoApiExtensions\Api\ShippingMethodManagementInterface"
     			type="Commerce365\MagentoApiExtensions\Model\ShippingMethod" />
-
     <preference for="Commerce365\MagentoApiExtensions\Api\PaymentMethodManagementInterface"
     			type="Commerce365\MagentoApiExtensions\Model\PaymentMethod" />
-
     <preference for="Commerce365\MagentoApiExtensions\Api\MagentoManagementInterface"
     			type="Commerce365\MagentoApiExtensions\Model\Magento" />
-
     <preference for="Commerce365\MagentoApiExtensions\Api\SalesManagementInterface"
-    			type="Commerce365\MagentoApiExtensions\Model\Sales" />                
+    			type="Commerce365\MagentoApiExtensions\Model\Sales" />
+
+    <virtualType name="Commerce365ApiExtensionModuleVersion" type="Commerce365\Core\Service\Module\Version">
+        <arguments>
+            <argument name="packageName" xsi:type="string">commerce365/module-apiextensions</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Commerce365ApiExtensionModuleVersionBlock" type="Commerce365\Core\Block\Adminhtml\Version">
+        <arguments>
+            <argument name="version" xsi:type="object">Commerce365ApiExtensionModuleVersion</argument>
+        </arguments>
+    </virtualType>
 </config>
