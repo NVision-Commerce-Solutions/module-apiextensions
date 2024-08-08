@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
-  
+
 	<route url="/V1/categories/:categoryId/position/:new" method="PUT">
         <service class="Commerce365\MagentoApiExtensions\Api\CategoryManagementInterface" method="updatePosition"/>
         <resources>
@@ -36,4 +36,17 @@
         </resources>
     </route>
 
+    <route url="/V1/products/attributes/:attributeCode/swatches" method="POST">
+        <service class="Commerce365\MagentoApiExtensions\Api\ProductAttributeSwatchManagementInterface" method="add" />
+        <resources>
+            <resource ref="Magento_Catalog::attributes_attributes" />
+        </resources>
+    </route>
+
+    <route url="/V1/products/attributes/:attributeCode/swatches/:optionId" method="PUT">
+        <service class="Commerce365\MagentoApiExtensions\Api\ProductAttributeSwatchManagementInterface" method="update" />
+        <resources>
+            <resource ref="Magento_Catalog::attributes_attributes" />
+        </resources>
+    </route>
 </routes>
