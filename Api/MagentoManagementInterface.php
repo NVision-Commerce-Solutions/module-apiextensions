@@ -17,7 +17,16 @@ interface MagentoManagementInterface
      * @api
      * @return string
      */
-    public function getMagentoVersion(): array;
+    public function getMagentoVersion(): string;
+
+
+    /**
+     * Get installed module versions
+     *
+     * @api
+     * @return array
+     */
+    public function getModuleVersions(): array;
 }
 
 

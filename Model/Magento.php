@@ -18,10 +18,21 @@ class Magento implements MagentoManagementInterface
     /**
      * Get current Magento version
      *
+     * @return string
+     * @api
+     */
+    public function getMagentoVersion(): string
+    {
+        return $this->productMetadata->getVersion();
+    }
+
+    /**
+     * Get installed module versions
+     *
      * @return array
      * @api
      */
-    public function getMagentoVersion(): array
+    public function getModuleVersions(): array
     {
         $result = [[
             'module' => 'magento',
