@@ -4,24 +4,51 @@ namespace Commerce365\MagentoApiExtensions\Model;
 
 use Commerce365\MagentoApiExtensions\Api\MagentoManagementInterface;
 use Magento\Framework\App\ProductMetadataInterface;
+use Magento\Framework\Module\ModuleList;
+use Magento\Framework\Module\PackageInfoFactory;
 
 class Magento implements MagentoManagementInterface
 {
-    private ProductMetadataInterface $productMetadata;
-
-    public function __construct(ProductMetadataInterface $productMetadata)
-    {
-        $this->productMetadata = $productMetadata;
-    }
+    public function __construct(
+        private readonly ProductMetadataInterface $productMetadata,
+        private readonly PackageInfoFactory $packageInfoFactory,
+        private readonly ModuleList $moduleList
+    ) {}
 
     /**
      * Get current Magento version
      *
-     * @api
      * @return string
+     * @api
      */
     public function getMagentoVersion(): string
     {
         return $this->productMetadata->getVersion();
+    }
+
+    /**
+     * Get installed module versions
+     *
+     * @return array
+     * @api
+     */
+    public function getModuleVersions(): array
+    {
+        $result = [[
+            'module' => 'magento',
+            'version' => $this->productMetadata->getVersion()
+        ]];
+
+        $packageInfo = $this->packageInfoFactory->create();
+        foreach ($this->moduleList->getNames() as $moduleName) {
+            if (str_contains($moduleName, 'Commerce365')) {
+                $result[] = [
+                    'module' => $moduleName,
+                    'version' => $packageInfo->getVersion($moduleName),
+                ];
+            }
+        }
+
+        return $result;
     }
 }

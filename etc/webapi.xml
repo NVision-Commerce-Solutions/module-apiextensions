@@ -49,4 +49,11 @@
             <resource ref="Magento_Catalog::attributes_attributes" />
         </resources>
     </route>
+
+    <route url="/V1/moduleversions" method="GET">
+        <service class="Commerce365\MagentoApiExtensions\Api\MagentoManagementInterface" method="getModuleVersions"/>
+        <resources>
+            <resource ref="admin" />
+        </resources>
+    </route>
 </routes>
