@@ -3,6 +3,7 @@
 namespace Commerce365\MagentoApiExtensions\Model;
 
 use Commerce365\MagentoApiExtensions\Api\MagentoManagementInterface;
+use Commerce365\MagentoApiExtensions\Model\Data\ModuleVersionFactory;
 use Magento\Framework\App\ProductMetadataInterface;
 use Magento\Framework\Module\ModuleList;
 use Magento\Framework\Module\PackageInfoFactory;
@@ -12,7 +13,8 @@ class Magento implements MagentoManagementInterface
     public function __construct(
         private readonly ProductMetadataInterface $productMetadata,
         private readonly PackageInfoFactory $packageInfoFactory,
-        private readonly ModuleList $moduleList
+        private readonly ModuleList $moduleList,
+        private readonly ModuleVersionFactory $moduleVersionFactory
     ) {}
 
     /**
@@ -34,18 +36,18 @@ class Magento implements MagentoManagementInterface
      */
     public function getModuleVersions(): array
     {
-        $result = [[
-            'module' => 'magento',
-            'version' => $this->productMetadata->getVersion()
-        ]];
+        $magentoVersion = $this->moduleVersionFactory->create();
+        $magentoVersion->setModule('magento');
+        $magentoVersion->setVersion($this->productMetadata->getVersion());
+        $result = [$magentoVersion];
 
         $packageInfo = $this->packageInfoFactory->create();
         foreach ($this->moduleList->getNames() as $moduleName) {
             if (str_contains($moduleName, 'Commerce365')) {
-                $result[] = [
-                    'module' => $moduleName,
-                    'version' => $packageInfo->getVersion($moduleName),
-                ];
+                $moduleVersion = $this->moduleVersionFactory->create();
+                $moduleVersion->setModule($moduleName);
+                $moduleVersion->setVersion($packageInfo->getVersion($moduleName));
+                $result[] = $moduleVersion;
             }
         }
 

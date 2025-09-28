@@ -3,19 +3,17 @@
 namespace Commerce365\MagentoApiExtensions\Model;
 
 use Commerce365\MagentoApiExtensions\Api\PaymentMethodManagementInterface;
+use Commerce365\MagentoApiExtensions\Model\Data\PaymentMethodFactory;
 use Magento\Payment\Api\PaymentMethodListInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
 class PaymentMethod implements PaymentMethodManagementInterface
 {
-    private PaymentMethodListInterface $paymentMethodList;
-    private StoreManagerInterface $storeManager;
-
-    public function __construct(PaymentMethodListInterface $paymentMethodList, StoreManagerInterface $storeManager)
-    {
-        $this->paymentMethodList = $paymentMethodList;
-        $this->storeManager = $storeManager;
-    }
+    public function __construct(
+        private readonly PaymentMethodListInterface $paymentMethodList,
+        private readonly StoreManagerInterface $storeManager,
+        private readonly PaymentMethodFactory $paymentMethodFactory,
+    ) {}
 
     /**
      * Get active payment methods
@@ -31,10 +29,10 @@ class PaymentMethod implements PaymentMethodManagementInterface
 
         foreach($activeMethods as $paymentMethod) {
             $methodCode = $paymentMethod->getCode();
-            $methods[$methodCode] = array(
-                'label' => $paymentMethod->getTitle(),
-                'value' => $methodCode
-            );
+            $paymentMethodModel = $this->paymentMethodFactory->create();
+            $paymentMethodModel->setLabel($paymentMethod->getTitle());
+            $paymentMethodModel->setValue($methodCode);
+            $methods[$methodCode] = $paymentMethodModel;
         }
 
         return $methods;

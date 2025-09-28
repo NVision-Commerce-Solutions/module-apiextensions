@@ -3,19 +3,17 @@
 namespace Commerce365\MagentoApiExtensions\Model;
 
 use Commerce365\MagentoApiExtensions\Api\ShippingMethodManagementInterface;
+use Commerce365\MagentoApiExtensions\Model\Data\ShippingMethodFactory;
 use Magento\Shipping\Model\Config;
 use Magento\Store\Model\StoreManagerInterface;
 
 class ShippingMethod implements ShippingMethodManagementInterface
 {
-    private Config $shipmentConfig;
-    private StoreManagerInterface $storeManager;
-
-    public function __construct(StoreManagerInterface $storeManager, Config $shipmentConfig)
-    {
-        $this->shipmentConfig = $shipmentConfig;
-        $this->storeManager = $storeManager;
-    }
+    public function __construct(
+        private readonly StoreManagerInterface $storeManager,
+        private readonly Config $shipmentConfig,
+        private readonly ShippingMethodFactory $shippingMethodFactory
+    ) {}
 
     /**
      * Get active carriers / shipping methods
@@ -33,10 +31,10 @@ class ShippingMethod implements ShippingMethodManagementInterface
             if ($carrierMethods = $carrierModel->getAllowedMethods()) {
                 foreach ($carrierMethods as $methodCode => $method) {
                     $code = $carrierCode . '_' . $methodCode;
-                    $methods[] = [
-                        'label' => $carrierModel->getConfigData('title'),
-                        'value' => $code
-                    ];
+                    $shippingMethodModel = $this->shippingMethodFactory->create();
+                    $shippingMethodModel->setLabel($carrierModel->getConfigData('title'));
+                    $shippingMethodModel->setValue($code);
+                    $methods[] = $shippingMethodModel;
                 }
             }
         }
