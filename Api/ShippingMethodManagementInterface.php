@@ -1,6 +1,8 @@
 <?php
 namespace Commerce365\MagentoApiExtensions\Api;
 
+use Commerce365\MagentoApiExtensions\Api\Data\ShippingMethodInterface;
+
 /**
  * Shipping Method Management Interface.
  *
@@ -15,7 +17,7 @@ interface ShippingMethodManagementInterface
      * Get active carriers / shipping methods
      *
      * @api
-     * @return string[]
+     * @return ShippingMethodInterface[]
      */
     public function getActiveMethods(): array;
 

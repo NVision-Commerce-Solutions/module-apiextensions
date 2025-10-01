@@ -17,6 +17,12 @@
                 type="Commerce365\MagentoApiExtensions\Model\Entity\Attribute\OptionSwatch" />
     <preference for="Commerce365\MagentoApiExtensions\Api\Data\AttributeOptionSwatchDataInterface"
                 type="Commerce365\MagentoApiExtensions\Model\Entity\Attribute\OptionSwatchData" />
+    <preference for="Commerce365\MagentoApiExtensions\Api\Data\ModuleVersionInterface"
+                type="Commerce365\MagentoApiExtensions\Model\Data\ModuleVersion"/>
+    <preference for="Commerce365\MagentoApiExtensions\Api\Data\PaymentMethodInterface"
+                type="Commerce365\MagentoApiExtensions\Model\Data\PaymentMethod"/>
+    <preference for="Commerce365\MagentoApiExtensions\Api\Data\ShippingMethodInterface"
+                type="Commerce365\MagentoApiExtensions\Model\Data\ShippingMethod"/>
     <type name="Commerce365\MagentoApiExtensions\Model\Product\SwatchManagement">
         <arguments>
             <argument name="eavOptionManagement" xsi:type="object">Commerce365\MagentoApiExtensions\Model\Product\SwatchOptionManagement</argument>
