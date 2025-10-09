@@ -2,8 +2,6 @@
 
 namespace Commerce365\MagentoApiExtensions\Api;
 
-use Commerce365\MagentoApiExtensions\Api\Data\PaymentMethodInterface;
-
 /**
  * Payment Method Management Interface.
  *
@@ -18,7 +16,7 @@ interface PaymentMethodManagementInterface
      * Get active payment methods
      *
      * @api
-     * @return PaymentMethodInterface[]
+     * @return \Commerce365\MagentoApiExtensions\Api\Data\PaymentMethodInterface[]
      */
     public function getActiveMethods(): array;
 
