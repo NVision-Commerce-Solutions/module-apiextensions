@@ -2,8 +2,6 @@
 
 namespace Commerce365\MagentoApiExtensions\Api;
 
-use Commerce365\MagentoApiExtensions\Api\Data\ModuleVersionInterface;
-
 /**
  * Magento Management Interface.
  *
@@ -27,7 +25,7 @@ interface MagentoManagementInterface
      * Get installed module versions
      *
      * @api
-     * @return ModuleVersionInterface[]
+     * @return \Commerce365\MagentoApiExtensions\Api\Data\ModuleVersionInterface[]
      */
     public function getModuleVersions(): array;
 }
