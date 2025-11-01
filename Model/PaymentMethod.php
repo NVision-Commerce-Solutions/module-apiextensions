@@ -30,7 +30,7 @@ class PaymentMethod implements PaymentMethodManagementInterface
         foreach($activeMethods as $paymentMethod) {
             $methodCode = $paymentMethod->getCode();
             $paymentMethodModel = $this->paymentMethodFactory->create();
-            $paymentMethodModel->setLabel($paymentMethod->getTitle());
+            $paymentMethodModel->setLabel($paymentMethod->getTitle() ?? $methodCode);
             $paymentMethodModel->setValue($methodCode);
             $methods[$methodCode] = $paymentMethodModel;
         }
