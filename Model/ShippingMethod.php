@@ -32,7 +32,7 @@ class ShippingMethod implements ShippingMethodManagementInterface
                 foreach ($carrierMethods as $methodCode => $method) {
                     $code = $carrierCode . '_' . $methodCode;
                     $shippingMethodModel = $this->shippingMethodFactory->create();
-                    $shippingMethodModel->setLabel($carrierModel->getConfigData('title'));
+                    $shippingMethodModel->setLabel($carrierModel->getConfigData('title') ?? $code);
                     $shippingMethodModel->setValue($code);
                     $methods[] = $shippingMethodModel;
                 }
